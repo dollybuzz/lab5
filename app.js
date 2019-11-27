@@ -1,3 +1,4 @@
+//Note - used 'npm i -g nodemon' to install nodemon globally
 const express = require("express");
 const app = express();
 
