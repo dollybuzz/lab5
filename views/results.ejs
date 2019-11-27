@@ -10,6 +10,7 @@
 <% results.forEach(function(imageURL, i) { %>
     <%- (i%3==0)?'<br>':"" %> <!-- adds a break tag every 3 images -->
     <img src= "<%= imageURL %>" width='200' height='200'>
+    <img class='favoriteIcon' src='img/favorite.png' width='20'>
 <% }) %>
         
 <%- include('partials/footer.ejs') %>
