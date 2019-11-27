@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Image Search App</title>
+<!-- Notice new syntax for including partials, this is for ejs version 3.0
+Refer to https://www.npmjs.com/package/ejs for more information -->
+
+<%- include('partials/header.ejs') %> 
         <style>
             body {
                 background-image: url("<%= imageURL %>");
@@ -14,7 +13,12 @@
             <h1>
                 Cool Images
             </h1>
+            <form action="/search">
+                <input type="text" placeholder="Type keyword" name="keyword"/><br><br>
+                <button>
+                    Search
+                </button>
+            </form>
 
         </main>
-    </body>
-</html>
+<%- include('partials/footer.ejs') %>

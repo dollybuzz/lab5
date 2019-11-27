@@ -24,7 +24,30 @@ app.get("/", function(req, res) {
             res.render("index.ejs", {"error": "Unable to access API"});
         }
     });//request
-});
+});//root route
+
+app.get("/search", function(req, res) { 
+    //console.dir(req);
+    //console.log(req.query.keyword); //keyword is the name of the parameter passed in the form
+    var keyword = req.query.keyword;
+    var requestURL = "https://api.unsplash.com/photos/random?query="+keyword+"&count=9&client_id=079b4e9f05b286d943c3d8eb4ba519395d27a2ba8c556c58213d8275234fd396&orientation=landscape";
+    request(requestURL, function(error, response, body) {
+        if (!error) {
+            var parsedData = JSON.parse(body);
+            //console.log("image url:", parsedData["urls"]["regular"]);
+            var imageURLs = [];
+            
+            for(let i = 0; i < 9; i++)
+            {
+                imageURLs.push(parsedData[i].urls.regular);
+            }
+            //console.log(imageURLs);
+            res.render("results.ejs", {"results": imageURLs});
+        } else {
+            res.render("results.ejs", {"error": "Unable to access API"});
+        }
+    });//request
+});//search
 
 //server listener
 app.listen("8080", "127.0.0.1", function() {

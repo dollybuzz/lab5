@@ -1,0 +1,15 @@
+<%- include('partials/header.ejs') %> 
+
+<form action="/search">
+                <input type="text" placeholder="Type keyword" name="keyword"/><br><br>
+                <button>
+                    Search
+                </button>
+            </form>
+        
+<% results.forEach(function(imageURL, i) { %>
+    <%- (i%3==0)?'<br>':"" %> <!-- adds a break tag every 3 images -->
+    <img src= "<%= imageURL %>" width='200' height='200'>
+<% }) %>
+        
+<%- include('partials/footer.ejs') %>
