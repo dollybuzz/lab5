@@ -49,7 +49,7 @@ getRandomImages: function (keyword, imageCount){
             //console.log("image url:", parsedData["urls"]["regular"]);
             var imageURLs = [];
             
-            for(let i = 0; i < 9; i++)
+            for(let i = 0; i < imageCount; i++)
             {
                 imageURLs.push(parsedData[i].urls.regular);
             }

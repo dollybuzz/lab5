@@ -11,23 +11,14 @@ const tools = require("./tools.js");
 
 //routes
 //root route
-app.get("/", function(req, res) {
-    var requestURL = "https://api.unsplash.com/photos/random?client_id=079b4e9f05b286d943c3d8eb4ba519395d27a2ba8c556c58213d8275234fd396&orientation=landscape";
-    request(requestURL, function(error, response, body) {
-        //console.log("error:", error); //Print the error if one occurred
-        //console.log("statusCode:", response && response.statusCode);
-        //console.log("body:", body); //Print the API data
-        if (!error) {
-            var parsedData = JSON.parse(body);
-            //console.log("image url:", parsedData["urls"]["regular"]);
-            var imageURL = parsedData["urls"]["regular"];
-            res.render("index.ejs", {"imageURL": imageURL});
-        } else {
-            res.render("index.ejs", {"error": "Unable to access API"});
-        }
-    });//request
+app.get("/", async function(req, res) { //'async' is for Promise method
+    
+    var imageURLs= await tools.getRandomImages("", 1); //requires 'async' word before function on line 30
+    //console.log("imageURLS using Promises: " + imageURLs);
+    res.render("index.ejs", {"results": imageURLs});
 });//root route
 
+//search route
 app.get("/search", async function(req, res) { //'async' is for Promise method
     //console.dir(req); //allows us to see all properties
     //console.log(req.query.keyword); //keyword is the name of the parameter passed in the form
