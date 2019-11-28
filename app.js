@@ -13,7 +13,7 @@ const tools = require("./tools.js");
 //root route
 app.get("/", async function(req, res) { //'async' is for Promise method
     
-    var imageURLs= await tools.getRandomImages("", 1); //requires 'async' word before function on line 30
+    var imageURLs= await tools.getRandomImages("", 1); //requires 'async' word before function
     //console.log("imageURLS using Promises: " + imageURLs);
     res.render("index.ejs", {"results": imageURLs});
 });//root route
@@ -34,7 +34,7 @@ app.get("/search", async function(req, res) { //'async' is for Promise method
     })*/
     
     //PROMISE METHOD
-    var imageURLs= await tools.getRandomImages(keyword, 9); //requires 'async' word before function on line 30
+    var imageURLs= await tools.getRandomImages(keyword, 9); //requires 'async' word before function
     console.log("imageURLS using Promises: " + imageURLs);
     res.render("results.ejs", {"results": imageURLs, "keyword": keyword});
         
@@ -71,8 +71,9 @@ app.get("/api/updateFavorites", function(req, res) {
 });//updateFavorites route
 
 //displayKeywords route
-app.get("/displayKeywords", function(req, res) {
+app.get("/displayKeywords", async function(req, res) {
     
+    var imageURLs= await tools.getRandomImages("", 1); //requires 'async' word before function
     var conn = tools.createConnection();
     var sql = "SELECT DISTINCT keyword FROM favorites ORDER BY keyword";
     
@@ -82,7 +83,7 @@ app.get("/displayKeywords", function(req, res) {
         
         conn.query(sql, function(err, result){
             if(err) throw err;
-            res.render("favorites", {"rows":result});
+            res.render("favorites", {"rows":result, "results":imageURLs});
             console.log(result);
         });//query
     });//connect

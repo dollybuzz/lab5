@@ -2,11 +2,6 @@
 Refer to https://www.npmjs.com/package/ejs for more information -->
 
 <%- include('partials/header.ejs') %> 
-        <style>
-            body {
-                background-image: url("<%= results[0] %>");
-            }
-        </style>
     </head>
     <body>
         <main>
@@ -14,12 +9,12 @@ Refer to https://www.npmjs.com/package/ejs for more information -->
                 Cool Images
             </h1>
             <form action="/search">
-                <input type="text" placeholder="Type keyword" name="keyword"/><br><br>
+                <input type="text" size="15" placeholder="Type keyword" name="keyword"/><br><br>
                 <button>
                     Search
                 </button>
-                <a href="/displayKeywords">See Favorites</a>
             </form>
+            <br>
 
         </main>
 <%- include('partials/footer.ejs') %>

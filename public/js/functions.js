@@ -30,7 +30,7 @@ $(document).ready(function () {
                 
                 $("#favorites").html("");
                 rows.forEach(function(row){
-                    $("#favorites").append("<img src='"+row.imageURL+"' width=200 height=200'><br>");
+                    $("#favorites").append("<img class='image' src='"+row.imageURL+"' width=200 height=200'><br>");
                 })
             }
         });//ajax
