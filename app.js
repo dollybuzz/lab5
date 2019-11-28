@@ -36,9 +36,45 @@ app.get("/search", async function(req, res) { //'async' is for Promise method
     //PROMISE METHOD
     var imageURLs= await tools.getRandomImages(keyword, 9); //requires 'async' word before function on line 30
     console.log("imageURLS using Promises: " + imageURLs);
-    res.render("results.ejs", {"results": imageURLs});
+    res.render("results.ejs", {"results": imageURLs, "keyword": keyword});
         
 });//search
+
+//favorites route
+app.get("/api/updateFavorites", function(req, res) {
+    
+    var conn = mysql.createConnection({
+        host: "cst336db.space", //not localhost since this is Professor's server
+        user: "cst336_dbUser007",
+        password: "qbqxba",
+        database: "cst336_db007"
+    })
+    
+    var sql;
+    var sqlParams;
+    
+    //checks the updateFavorite() action attribute from functions.ejs
+    if(req.query.action == "add") {
+    sql = "INSERT INTO favorites (imageURL, keyword) VALUES (?, ?)";
+    sqlParams = [req.query.imageURL, req.query.keyword];
+    } else {
+        sql = "DELETE FROM favorites WHERE imageURL = ?";
+        sqlParams = [req.query.imageURL];
+    }
+    
+    conn.connect(function(err) {
+        
+        if(err) throw err;
+        
+        conn.query(sql, sqlParams, function(err, result) {
+            
+            if(err) throw err;
+            
+        });//query
+    });//connect
+    
+    res.send("it works!");
+});//favorites route
 
 
 //server listener

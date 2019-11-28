@@ -1,7 +1,7 @@
 <%- include('partials/header.ejs') %> 
 
 <form action="/search">
-                <input type="text" placeholder="Type keyword" name="keyword"/><br><br>
+                <input type="text" id="keywordID" value="<%=keyword %>" placeholder="Type keyword" name="keyword"/><br><br>
                 <button>
                     Search
                 </button>
