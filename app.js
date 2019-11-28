@@ -40,16 +40,10 @@ app.get("/search", async function(req, res) { //'async' is for Promise method
         
 });//search
 
-//favorites route
+//updateFavorites route
 app.get("/api/updateFavorites", function(req, res) {
     
-    var conn = mysql.createConnection({
-        host: "cst336db.space", //not localhost since this is Professor's server
-        user: "cst336_dbUser007",
-        password: "qbqxba",
-        database: "cst336_db007"
-    })
-    
+    var conn = tools.createConnection();
     var sql;
     var sqlParams;
     
@@ -74,7 +68,45 @@ app.get("/api/updateFavorites", function(req, res) {
     });//connect
     
     res.send("it works!");
-});//favorites route
+});//updateFavorites route
+
+//displayKeywords route
+app.get("/displayKeywords", function(req, res) {
+    
+    var conn = tools.createConnection();
+    var sql = "SELECT DISTINCT keyword FROM favorites ORDER BY keyword";
+    
+    conn.connect( function(err){
+        
+        if(err) throw err;
+        
+        conn.query(sql, function(err, result){
+            if(err) throw err;
+            res.render("favorites", {"rows":result});
+            console.log(result);
+        });//query
+    });//connect
+    
+});//displayKeywords route
+
+//displayFavorites route
+app.get("/api/displayFavorites", function(req, res) {
+    
+    var conn = tools.createConnection();
+    var sql= "SELECT imageURL FROM favorites where keyword = ?";
+    var sqlParams = [req.query.keyword];
+    
+    conn.connect( function(err){
+        
+        if(err) throw err;
+        
+        conn.query(sql, sqlParams, function(err, results){
+            if(err) throw err;
+            res.send(results);
+        });//query
+    });//connect
+    
+});//displayFavorites route
 
 
 //server listener

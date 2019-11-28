@@ -1,4 +1,5 @@
 const request = require("request");
+const mysql = require("mysql");
 
 module.exports = {
 /*
@@ -30,7 +31,7 @@ getRandomImages_cb: function (keyword, imageCount, callback){
         }
     });//request
     
-}, //requires comma after function
+}, //commas are required between functions
 
 /*
 Return random image URLs from an API
@@ -63,6 +64,21 @@ getRandomImages: function (keyword, imageCount){
         }
     });//request
     });//promise
-}//function but no comma necessary
+}, 
+
+/*
+Creates database connection
+@return db connection
+*/
+createConnection: function (){
+    var conn = mysql.createConnection({
+        host: "cst336db.space", //not localhost since this is Professor's server
+        user: "cst336_dbUser007",
+        password: "qbqxba",
+        database: "cst336_db007"
+    });
+    
+    return conn;
+}
 
 }//end module.exports
