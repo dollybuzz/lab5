@@ -110,6 +110,11 @@ app.get("/api/displayFavorites", function(req, res) {
 });//displayFavorites route
 
 //server listener
-app.listen("8080", "127.0.0.1", function() {
+/*app.listen("8080", "127.0.0.1", function() {
+    console.log("Running Express Server...");
+});*/
+
+//server listener
+app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Running Express Server...");
 });
