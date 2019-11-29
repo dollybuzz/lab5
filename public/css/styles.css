@@ -52,3 +52,9 @@ h1 {
     font-size: 0.8em;
     margin: 7px;
 }
+
+#favorites {
+    background-color: rgba(250,250,250,0.75);
+    display: inline-block;
+    padding: 15px;
+}

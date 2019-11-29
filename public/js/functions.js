@@ -17,7 +17,6 @@ $(document).ready(function () {
     });
     
     $(".keywordLink").on("click", function(){
-        
         //alert($(this).text().trim());
         
         $.ajax({
@@ -29,12 +28,17 @@ $(document).ready(function () {
             success: function(rows, status) {
                 
                 $("#favorites").html("");
-                rows.forEach(function(row){
-                    $("#favorites").append("<img class='image' src='"+row.imageURL+"' width=200 height=200'><br>");
-                })
+                rows.forEach(function(row, i){
+                    if (i%4==0)
+                    {
+                        $("#favorites").append("<br>"); //adding a break for every 4 images
+                    }
+                    $("#favorites").append("<img class='image' src='"+row.imageURL+"' width=150 height=150'><img class='favoritePageIcon' src='img/favorite_on.png' width=20 height=20>");
+                    //added the heart icon dynamically with the page population
+                    
+                });//for each
             }
         });//ajax
-        
     });
     
     function updateFavorite(action, imageURL) {
@@ -47,4 +51,19 @@ $(document).ready(function () {
             }
         });//ajax
     }
+    
+    //dynamic event listener for favorite icon, does not allow to re-favorite an image
+    $(document).on("click", ".favoritePageIcon", function(){
+        //alert("this worked!");
+        //alert($(this).prev().attr("src"));
+        
+        var imageURL = $(this).prev().attr("src");
+        if($(this).attr("src", "img/favorite_on.png"))
+        {
+            $(this).attr("src", "img/favorite.png");
+            updateFavorite("delete", imageURL); //deletes record from DB
+        }
+    });
+    
 });
+
