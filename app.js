@@ -35,7 +35,7 @@ app.get("/search", async function(req, res) { //'async' is for Promise method
     
     //PROMISE METHOD
     var imageURLs= await tools.getRandomImages(keyword, 9); //requires 'async' word before function
-    console.log("imageURLS using Promises: " + imageURLs);
+    //console.log("imageURLS using Promises: " + imageURLs);
     res.render("results.ejs", {"results": imageURLs, "keyword": keyword});
         
 });//search
@@ -83,8 +83,8 @@ app.get("/displayKeywords", async function(req, res) {
         
         conn.query(sql, function(err, result){
             if(err) throw err;
-            res.render("favorites", {"rows":result, "results":imageURLs});
-            console.log(result);
+            res.render("favorites.ejs", {"rows":result, "results":imageURLs});
+            //console.log(result);
         });//query
     });//connect
     
